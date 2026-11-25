@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #f0f2f5;
@@ -14,6 +18,10 @@ body {
     justify-content: center;
     align-items: center;
     padding: 30px 20px;
+}
+
+img, iframe {
+    max-width: 100%;
 }
 
 .app-layout {
@@ -31,6 +39,7 @@ body {
 
 .todo-card {
     flex: 1;
+    min-width: 0;
     background: #ffffff;
     border-radius: 20px;
     padding: 32px;
@@ -396,6 +405,7 @@ body {
 .custom-checkbox {
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
     border-radius: 6px;
     border: 2px solid #cbd5e1;
     background: white;
@@ -683,7 +693,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     height: 100dvh;
     background: rgba(15, 23, 42, 0.6);
@@ -703,6 +713,8 @@ body {
     background: #ffffff;
     width: 90%;
     max-width: 420px;
+    max-height: 90dvh;
+    overflow-y: auto;
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -1059,9 +1071,16 @@ body {
     text-align: center;
 }
 
+
 @media (max-width: 900px) {
     .app-layout {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .todo-card {
+        flex: none;
+        width: 100%;
     }
 
     .music-player {
@@ -1099,19 +1118,23 @@ body {
     }
 }
 
+
 @media (max-width: 600px) {
     body {
-        padding: 12px 12px 84px;
+        padding: 0 0 84px;
         align-items: flex-start;
     }
 
     .app-layout {
-        gap: 16px;
+        gap: 12px;
     }
 
     .todo-card {
         padding: 18px 14px;
-        border-radius: 16px;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        min-height: calc(100dvh - 84px);
     }
 
     .header {
@@ -1224,6 +1247,7 @@ body {
     .task-item {
         padding: 10px;
         gap: 6px;
+        flex-wrap: wrap;
     }
 
     .task-meta {
@@ -1232,6 +1256,8 @@ body {
     }
 
     .task-actions {
+        width: 100%;
+        justify-content: flex-end;
         gap: 2px;
     }
 
@@ -1298,6 +1324,7 @@ body {
     }
 }
 
+
 @media (pointer: coarse) {
     .task-item {
         -webkit-user-select: none;
@@ -1321,3 +1348,4 @@ body {
         touch-action: manipulation;
     }
 }
+
