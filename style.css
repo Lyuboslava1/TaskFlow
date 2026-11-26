@@ -1561,40 +1561,79 @@ img, iframe {
     }
 }
 
+#toggle-fields-btn {
+    display: none;
+}
+
 @media (max-width: 600px) {
     #input-box {
-        min-height: 38px;
-        padding-top: 6px;
-        padding-bottom: 6px;
+        min-height: 52px;
+        font-size: 17px;
+        padding: 8px 44px 8px 32px;
     }
 
     #topic-box,
     #priority-select {
-        min-height: 28px;
-        height: 28px;
-        padding: 2px 6px;
-        font-size: 14px;
-        border-radius: 7px;
+        min-height: 24px;
+        height: 24px;
+        padding: 1px 6px;
+        font-size: 13px;
+        border-radius: 6px;
     }
 
     #priority-select {
-        max-width: 30%;
+        max-width: 28%;
     }
 
     .date-picker-wrapper {
-        flex: 0 0 28px;
-        width: 28px;
-        height: 28px;
-        border-radius: 7px;
+        flex: 0 0 24px;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
     }
 
     .date-picker-wrapper img {
-        width: 13px;
-        height: 13px;
+        width: 12px;
+        height: 12px;
     }
 
     .input-group > img {
-        top: 17px;
+        top: 24px;
+    }
+
+    #toggle-fields-btn {
+        display: flex;
+        position: absolute;
+        top: 16px;
+        right: 6px;
+        width: 36px;
+        height: 36px;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        color: #64748b;
+        cursor: pointer;
+    }
+
+    #toggle-fields-btn:active {
+        background: #f1f5f9;
+    }
+
+    #toggle-fields-btn svg {
+        transition: transform 0.2s ease;
+    }
+
+    .input-group.fields-hidden #toggle-fields-btn svg {
+        transform: rotate(180deg);
+    }
+
+    .input-group.fields-hidden #topic-box,
+    .input-group.fields-hidden #priority-select,
+    .input-group.fields-hidden .date-picker-wrapper {
+        display: none;
     }
 }
+
 
