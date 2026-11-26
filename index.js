@@ -730,7 +730,7 @@ function setupDragAndDrop() {
     });
 }
 
-// Пренареждане с докосване: задръжте задачата ~0.3 сек и влачете
+
 function setupTouchDrag() {
     let item = null;
     let timer = null;
@@ -775,7 +775,7 @@ function setupTouchDrag() {
         if (!item) return;
         item.classList.remove('dragging');
         item = null;
-        suppressClickUntil = Date.now() + 400;   // да не се отбележи като изпълнена след пускане
+        suppressClickUntil = Date.now() + 400;  
         commitDragOrder();
     };
 
@@ -828,3 +828,23 @@ function clearData() {
 
     clearModal.classList.remove('hidden');
 }
+
+(function setupFieldsToggle() {
+    const group = document.querySelector('.input-group');
+    if (!group || document.getElementById('toggle-fields-btn')) return;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'toggle-fields-btn';
+    btn.setAttribute('aria-label', 'Покажи / скрий категория и приоритет');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>';
+
+    btn.addEventListener('click', () => {
+        const hidden = group.classList.toggle('fields-hidden');
+        btn.setAttribute('aria-expanded', String(!hidden));
+    });
+
+    group.appendChild(btn);
+})();
+
