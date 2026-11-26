@@ -29,13 +29,10 @@ TasksFlow is a modern and intuitive task manager designed to help you organize y
 - HTML5
 - CSS3
 - JavaScript
-- Local Storage API
-- Spotify Embed
 
 ## 📱 Responsive Design
 
 TasksFlow is designed to provide a smooth experience across desktop, tablet, and mobile screen sizes.
-
 
 
 ## 👩‍💻 Author
