@@ -1636,4 +1636,40 @@ img, iframe {
     }
 }
 
+#topic-box,
+#priority-select {
+    min-height: 44px;
+    font-size: 15px;
+    padding: 10px 12px;
+    border-radius: 10px;
+}
+
+#topic-box {
+    min-width: 150px;
+}
+
+#priority-select {
+    min-width: 110px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    #topic-box,
+    #priority-select {
+        min-height: 48px;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    #topic-box {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #priority-select {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
 
