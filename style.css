@@ -1638,38 +1638,71 @@ img, iframe {
 
 #topic-box,
 #priority-select {
-    min-height: 44px;
-    font-size: 15px;
-    padding: 10px 12px;
-    border-radius: 10px;
+    min-height: 36px;
+    height: 36px;
+    font-size: 13px;
+    padding: 6px 9px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #475569;
+    outline: none;
+    box-sizing: border-box;
 }
 
 #topic-box {
-    min-width: 150px;
+    min-width: 130px;
+    width: 160px;
 }
 
 #priority-select {
-    min-width: 110px;
+    min-width: 95px;
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
+#topic-box:focus,
+#priority-select:focus {
+    border-color: #6366f1;
+}
+
+
+@media (max-width: 600px) {
     #topic-box,
     #priority-select {
-        min-height: 48px;
-        font-size: 16px;
-        padding: 12px;
+        min-height: 36px;
+        height: 36px;
+        font-size: 13px;
+        padding: 5px 7px;
+        border-radius: 7px;
     }
 
     #topic-box {
-        width: 100%;
+        flex: 1 1 0;
+        width: auto;
         min-width: 0;
     }
 
     #priority-select {
-        width: 100%;
+        flex: 0 1 auto;
         min-width: 0;
+        max-width: 34%;
+    }
+
+    .date-picker-wrapper {
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .date-picker-wrapper img {
+        width: 16px;
+        height: 16px;
     }
 }
 
+@media (max-width: 768px) {
+    .pages-bar {
+        display: flex;
+    }
+}
 
