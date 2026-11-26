@@ -1,6 +1,7 @@
-# <h1 align="center">🎯
+<h1 align="center">
+  🎯
   <a href="https://lyuboslava1.github.io/TaskFlow/" target="_blank">
-   TasksFlow
+    TasksFlow
   </a>
 </h1>
 
