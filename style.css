@@ -1071,7 +1071,6 @@ img, iframe {
     text-align: center;
 }
 
-
 @media (max-width: 900px) {
     .app-layout {
         flex-direction: column;
@@ -1117,7 +1116,6 @@ img, iframe {
         flex-wrap: wrap;
     }
 }
-
 
 @media (max-width: 600px) {
     body {
@@ -1324,7 +1322,6 @@ img, iframe {
     }
 }
 
-
 @media (pointer: coarse) {
     .task-item {
         -webkit-user-select: none;
@@ -1348,7 +1345,6 @@ img, iframe {
         touch-action: manipulation;
     }
 }
-
 
 @media (max-width: 600px) {
     .input-controls {
@@ -1387,7 +1383,6 @@ img, iframe {
     }
 }
 
-
 @media (max-width: 600px) {
     .input-group {
         position: relative;
@@ -1408,7 +1403,6 @@ img, iframe {
         padding-left: 32px;
     }
 }
-
 
 @media (max-width: 600px) {
     .task-item {
@@ -1457,7 +1451,6 @@ img, iframe {
     }
 }
 
-
 .custom-checkbox {
     width: 24px;
     height: 24px;
@@ -1480,7 +1473,6 @@ img, iframe {
     background-position: center !important;
     background-size: 100% 100% !important;
 }
-
 
 @media (max-width: 600px) {
     .task-item {
@@ -1548,7 +1540,6 @@ img, iframe {
     }
 }
 
-
 @media (max-width: 600px) {
     #add-btn {
         flex: 1 1 100%;
@@ -1569,3 +1560,41 @@ img, iframe {
         gap: 6px;
     }
 }
+
+@media (max-width: 600px) {
+    #input-box {
+        min-height: 38px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    #topic-box,
+    #priority-select {
+        min-height: 28px;
+        height: 28px;
+        padding: 2px 6px;
+        font-size: 14px;
+        border-radius: 7px;
+    }
+
+    #priority-select {
+        max-width: 30%;
+    }
+
+    .date-picker-wrapper {
+        flex: 0 0 28px;
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+    }
+
+    .date-picker-wrapper img {
+        width: 13px;
+        height: 13px;
+    }
+
+    .input-group > img {
+        top: 17px;
+    }
+}
+
