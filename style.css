@@ -1410,25 +1410,6 @@ img, iframe {
 }
 
 
-.custom-checkbox {
-    width: 22px;
-    height: 22px;
-    min-width: 22px;
-    min-height: 22px;
-    flex: 0 0 22px;
-    padding: 0;
-    line-height: 1;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
-.custom-checkbox > * {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-}
-
-
 @media (max-width: 600px) {
     .task-item {
         flex-wrap: nowrap;
@@ -1477,48 +1458,77 @@ img, iframe {
 }
 
 
-.input-group {
-    background: #e9edf3;
-    border-color: #aeb9c9;
+.custom-checkbox {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    flex: 0 0 24px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.input-group:focus-within {
-    background: #e2e8f0;
+.custom-checkbox img {
+    display: none !important;
 }
-
-#topic-box,
-#priority-select,
-.date-picker-wrapper {
-    background: #ffffff;
-}
-
 
 .task-item.completed .custom-checkbox {
     background-color: #ffffff !important;
     border-color: #10b981 !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 12.5l6.5 6.5L21.5 5.5'/%3E%3C/svg%3E") !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12.5l6 6L21 6'/%3E%3C/svg%3E") !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
     background-size: 100% 100% !important;
-    font-size: 0 !important;
-    color: transparent !important;
-}
-
-.task-item.completed .custom-checkbox > * {
-    display: none !important;
 }
 
 
 @media (max-width: 600px) {
     .task-item {
-        min-height: 42px;
-        padding: 4px 8px;
+        min-height: 68px;
+        padding: 12px 12px;
+        gap: 8px;
         align-items: center;
     }
 
+    .task-content {
+        gap: 12px;
+    }
+
+    .task-title {
+        font-size: 16px;
+        line-height: 1.35;
+    }
+
+    .task-meta {
+        margin-top: 6px;
+        gap: 6px;
+    }
+
+    .badge {
+        font-size: 12px;
+        padding: 3px 9px;
+    }
+
+    .due-date-display {
+        font-size: 13px;
+    }
+
+    .task-list,
+    .topic-block-items {
+        gap: 10px;
+    }
+
     .task-actions .action-btn {
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .custom-checkbox {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        min-height: 26px;
+        flex: 0 0 26px;
     }
 
     #topic-box,
@@ -1535,5 +1545,27 @@ img, iframe {
         flex: 0 0 38px;
         width: 38px;
         height: 38px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    #add-btn {
+        flex: 1 1 100%;
+        width: 100%;
+        margin-left: 0;
+        min-height: 32px;
+        padding: 5px 16px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    .input-group {
+        padding: 8px 10px;
+        gap: 6px;
+    }
+
+    .input-controls {
+        gap: 6px;
     }
 }
