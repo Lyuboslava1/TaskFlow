@@ -6,6 +6,10 @@ TasksFlow is a modern and intuitive task manager designed to help you organize y
 
 ![TasksFlow Preview](preview.png)
 
+## 🌐 Live Demo
+
+**[Open TasksFlow](https://lyuboslava1.github.io/TaskFlow/)**
+
 ## 🚀 Features
 
 - **Task Management** — Create, edit, complete, archive, restore, and delete tasks.
