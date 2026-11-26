@@ -1,14 +1,14 @@
-# 🎯 TasksFlow
+# <h1 align="center">🎯
+  <a href="https://lyuboslava1.github.io/TaskFlow/" target="_blank">
+   TasksFlow
+  </a>
+</h1>
 
 ### Organize • Focus • Achieve
 
 TasksFlow is a modern and intuitive task manager designed to help you organize your daily activities, track your progress, and stay productive.
 
 ![TasksFlow Preview](preview.png)
-
-## 🌐 Live Demo
-
-**[Open TasksFlow](https://lyuboslava1.github.io/TaskFlow/)**
 
 ## 🚀 Features
 
