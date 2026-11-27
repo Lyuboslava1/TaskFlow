@@ -1,5 +1,5 @@
 <h1 align="center">
-  🎯
+  
   <a href="https://lyuboslava1.github.io/TaskFlow/" target="_blank">
     TasksFlow
   </a>
@@ -37,7 +37,7 @@ TasksFlow is designed to provide a smooth experience across desktop, tablet, and
 
 ## Author
 
-Created by **Lyuboslava Ivanova** ❤️
+Created by **Lyuboslava Ivanova** 
 
 Frontend Developer | HTML • CSS • JavaScript • React
 
