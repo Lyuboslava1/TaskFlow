@@ -9,6 +9,7 @@ const translations = {
         "opt-high": "Висок",
         "due-date-title": "Краен срок",
         "btn-add": "Добави",
+        "details-toggle-title": "Покажи / скрий детайли",
         "tab-active": "Активни",
         "tab-history": "Архив",
         "drag-hint": "Придърпайте задачите, за да ги пренаредите",
@@ -57,6 +58,7 @@ const translations = {
         "opt-medium": "Medium",
         "opt-high": "High",
         "due-date-title": "Due Date",
+        "details-toggle-title": "Show / hide details",
         "btn-add": "Add",
         "tab-active": "Active",
         "tab-history": "Archive",
@@ -130,6 +132,8 @@ const inputBox = document.getElementById('input-box');
 const topicBox = document.getElementById('topic-box');
 const prioritySelect = document.getElementById('priority-select');
 const dateBox = document.getElementById('date-box');
+const toggleDetailsBtn = document.getElementById('toggle-details-btn');
+const inputGroup = document.querySelector('.input-group');
 const inputSection = document.getElementById('input-section');
 const activeList = document.getElementById('list-container');
 const historyList = document.getElementById('history-container');
@@ -197,6 +201,19 @@ clearNoBtn.addEventListener('click', () => clearModal.classList.add('hidden'));
 renderTasks();
 setupDragAndDrop();
 setupTouchDrag();
+
+
+function setDetailsCollapsed(collapsed) {
+    inputGroup.classList.toggle('details-collapsed', collapsed);
+    toggleDetailsBtn.setAttribute('aria-expanded', String(!collapsed));
+    localStorage.setItem('tasksflow_details_collapsed', collapsed ? '1' : '0');
+}
+
+setDetailsCollapsed(localStorage.getItem('tasksflow_details_collapsed') === '1');
+
+toggleDetailsBtn.addEventListener('click', () => {
+    setDetailsCollapsed(!inputGroup.classList.contains('details-collapsed'));
+});
 
 
 function toggleLanguage() {
@@ -832,4 +849,3 @@ function clearData() {
 
     clearModal.classList.remove('hidden');
 }
-
