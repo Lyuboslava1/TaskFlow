@@ -40,5 +40,3 @@ TasksFlow is designed to provide a smooth experience across desktop, tablet, and
 Created by **Lyuboslava Ivanova** 
 
 Frontend Developer | HTML • CSS • JavaScript • React
-
-**TasksFlow — Get more done!**
