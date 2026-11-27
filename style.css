@@ -1322,6 +1322,8 @@ body {
     }
 }
 
+/* ===== Toggle за детайлите (категория / приоритет / дата) ===== */
+
 .meta-wrap {
     display: contents;
 }
@@ -1345,12 +1347,6 @@ body {
     width: 44px;
     height: 44px;
     font-size: 16px;
-    transition: background 0.2s, color 0.2s;
-}
-
-.toggle-details-btn:hover {
-    background: #e0e7ff;
-    color: #4f46e5;
 }
 
 .toggle-details-btn .chevron {
@@ -1376,32 +1372,26 @@ body {
     .meta-wrap {
         display: grid;
         grid-template-rows: 1fr;
-        transition: grid-template-rows 0.3s ease, margin 0.3s ease;
+        transition: grid-template-rows 0.3s ease;
     }
 
     .meta-row {
         min-height: 0;
         overflow: hidden;
-        transition: opacity 0.2s ease, visibility 0.3s;
     }
 
-    #priority-select,
-    #topic-box {
+    #topic-box,
+    #priority-select {
         flex: 1 1 0;
         min-width: 0;
     }
 
     .input-group.details-collapsed .meta-wrap {
         grid-template-rows: 0fr;
-        margin-bottom: -8px;
-    }
-
-    .input-group.details-collapsed .meta-row {
-        opacity: 0;
-        visibility: hidden;
     }
 
     .input-group.details-collapsed .toggle-details-btn .chevron {
         transform: rotate(0deg);
     }
 }
+
