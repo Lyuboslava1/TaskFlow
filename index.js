@@ -27,12 +27,14 @@ const translations = {
         "confirm-delete-no": "Отказ",
         "playlist-placeholder": "Поставете Spotify Playlist линк...",
         "playlist-hint-text": "Искаш ли да слушаш любимата си музика, кликни тук",
+
         "tooltip-edit": "Редактиране",
         "tooltip-archive": "Премести в архив",
         "tooltip-delete": "Изтрий",
         "tooltip-restore": "Възстанови в активни",
         "tooltip-delete-perm": "Изтрий завинаги",
         "tooltip-complete": "Кликнете за изпълнение",
+
         "toast-empty": "Моля, въведете текст на задачата!",
         "toast-emptyList": "Няма задачи за изчистване!",
         "toast-added": "Задачата е добавена успешно!",
@@ -74,12 +76,14 @@ const translations = {
         "confirm-delete-no": "Cancel",
         "playlist-placeholder": "Paste Spotify Playlist link...",
         "playlist-hint-text": "Want to listen to your favorite music? Click here",
+
         "tooltip-edit": "Edit Task",
         "tooltip-archive": "Move to Archive",
         "tooltip-delete": "Delete",
         "tooltip-restore": "Restore to Active",
         "tooltip-delete-perm": "Delete Permanently",
         "tooltip-complete": "Click to complete/incomplete",
+
         "toast-empty": "Please enter a task text!",
         "toast-emptyList": "No tasks to clear!",
         "toast-added": "Task added successfully!",
@@ -95,6 +99,7 @@ const translations = {
     }
 };
 
+
 let tasks = JSON.parse(localStorage.getItem('tasksflow_tasks')) || [];
 let activeTab = 'active';
 let currentEditingTaskId = null;
@@ -102,12 +107,9 @@ let currentLang = localStorage.getItem('tasksflow_lang') || 'bg';
 let taskToDeleteId = null;
 let viewToClear = null;
 let hintDismissed = localStorage.getItem('tasksflow_hint_dismissed') === '1';
+const completionSound = new Audio('/completed.mp3');
 
-const completionSound = new Audio('./completed.mp3');
-
-const TASKS_PER_PAGE = () =>
-    window.matchMedia('(max-width: 768px)').matches ? 4 : 6;
-
+const TASKS_PER_PAGE = 6;
 const pages = { active: 1, history: 1 };
 const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 let suppressClickUntil = 0;
@@ -122,6 +124,7 @@ const CATEGORY_PALETTE = [
     { bg: '#ccfbf1', color: '#0f766e', border: '#99f6e4' },
     { bg: '#ffedd5', color: '#c2410c', border: '#fed7aa' }
 ];
+
 
 const inputBox = document.getElementById('input-box');
 const topicBox = document.getElementById('topic-box');
@@ -141,14 +144,14 @@ const editTextInput = document.getElementById('edit-text-input');
 const editTopicInput = document.getElementById('edit-topic-input');
 const editPrioritySelect = document.getElementById('edit-priority-select');
 const editDateInput = document.getElementById('edit-date-input');
-
 const deleteModal = document.getElementById('delete-confirm-modal');
 const confirmDeleteYes = document.getElementById('btn-confirm-yes');
 const confirmDeleteNo = document.getElementById('btn-confirm-no');
-
 const clearModal = document.getElementById('clear-confirm-modal');
 const clearYesBtn = document.getElementById('btn-clear-yes');
 const clearNoBtn = document.getElementById('btn-clear-no');
+
+
 
 applyLanguage();
 
@@ -158,30 +161,20 @@ if (hintDismissed) {
 }
 
 const savedPlaylist = localStorage.getItem('tasksflow_spotify_playlist');
-
 if (savedPlaylist) {
     const iframe = document.getElementById('spotify-iframe');
     if (iframe) iframe.src = savedPlaylist;
 }
 
-inputBox.addEventListener('keydown', e => {
-    if (e.key === 'Enter') addTask();
-});
-
-topicBox.addEventListener('keydown', e => {
-    if (e.key === 'Enter') addTask();
-});
+inputBox.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
+topicBox.addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
 
 confirmDeleteYes.addEventListener('click', () => {
     if (taskToDeleteId === null) return;
-
     tasks = tasks.filter(task => task.id !== taskToDeleteId);
-
     saveAndRender();
-
     deleteModal.classList.add('hidden');
     taskToDeleteId = null;
-
     showToast('toast-deleted', 'success');
 });
 
@@ -194,75 +187,49 @@ clearYesBtn.addEventListener('click', () => {
     tasks = viewToClear === 'active'
         ? tasks.filter(task => task.archived)
         : tasks.filter(task => !task.archived);
-
     saveAndRender();
-
     clearModal.classList.add('hidden');
-
     showToast('toast-cleared', 'info');
 });
 
-clearNoBtn.addEventListener('click', () => {
-    clearModal.classList.add('hidden');
-});
+clearNoBtn.addEventListener('click', () => clearModal.classList.add('hidden'));
 
 renderTasks();
 setupDragAndDrop();
 setupTouchDrag();
 
-window.addEventListener('resize', renderTasks);
 
 function toggleLanguage() {
     currentLang = currentLang === 'bg' ? 'en' : 'bg';
-
     localStorage.setItem('tasksflow_lang', currentLang);
-
     applyLanguage();
     renderTasks();
 }
 
 function applyLanguage() {
     document.getElementById('html-root').lang = currentLang;
-
-    document.getElementById('lang-label').textContent =
-        currentLang === 'bg' ? 'EN' : 'BG';
+    document.getElementById('lang-label').textContent = currentLang === 'bg' ? 'EN' : 'BG';
 
     document.querySelectorAll('[data-translate]').forEach(el => {
         const key = el.getAttribute('data-translate');
-
-        if (translations[currentLang][key]) {
-            el.textContent = translations[currentLang][key];
-        }
+        if (translations[currentLang][key]) el.textContent = translations[currentLang][key];
     });
 
     document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
         const key = el.getAttribute('data-translate-placeholder');
-
-        if (translations[currentLang][key]) {
-            el.placeholder = translations[currentLang][key];
-        }
+        if (translations[currentLang][key]) el.placeholder = translations[currentLang][key];
     });
 
     document.querySelectorAll('[data-translate-title]').forEach(el => {
         const key = el.getAttribute('data-translate-title');
-
-        if (translations[currentLang][key]) {
-            el.title = translations[currentLang][key];
-        }
+        if (translations[currentLang][key]) el.title = translations[currentLang][key];
     });
 
-    const dateOptions = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    };
-
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const localeStr = currentLang === 'bg' ? 'bg-BG' : 'en-US';
-
-    document.getElementById('current-date').textContent =
-        new Date().toLocaleDateString(localeStr, dateOptions);
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString(localeStr, dateOptions);
 }
+
 
 function showToast(key, type = 'success') {
     const container = document.getElementById('toast-container');
@@ -272,7 +239,6 @@ function showToast(key, type = 'success') {
     toast.className = `toast ${type}`;
 
     let icon = './images/mark.png';
-
     if (type === 'info') icon = './images/information.png';
     if (type === 'warning') icon = './images/alert.png';
     if (type === 'error') icon = './images/close.png';
@@ -303,11 +269,11 @@ function showToast(key, type = 'success') {
             toast.style.opacity = '0';
             toast.style.transform = 'translateY(10px)';
             toast.style.transition = 'all 0.3s ease';
-
             setTimeout(() => toast.remove(), 300);
         }
     }, 2000);
 }
+
 
 function normalizeTopic(topic) {
     return (topic || '').trim();
@@ -315,44 +281,33 @@ function normalizeTopic(topic) {
 
 function getCategoryStyle(topic) {
     const clean = normalizeTopic(topic).toLowerCase();
-
     let hash = 0;
-
     for (let i = 0; i < clean.length; i++) {
         hash = (hash * 31 + clean.charCodeAt(i)) >>> 0;
     }
-
     return CATEGORY_PALETTE[hash % CATEGORY_PALETTE.length];
 }
 
 function createCategoryBadgeHTML(topic) {
     const clean = normalizeTopic(topic);
-
     if (!clean) return '';
-
     const palette = getCategoryStyle(clean);
-
     return `<span class="badge badge-category" style="background-color:${palette.bg};color:${palette.color};border:1px solid ${palette.border};">${escapeHTML(clean)}</span>`;
 }
 
 function getView(tab) {
     const archived = tab === 'history';
-
     return tasks.filter(t => !!t.archived === archived);
 }
 
 function updateTopicList() {
     const names = new Set();
-
     tasks.forEach(t => {
         const clean = normalizeTopic(t.topic);
         if (clean) names.add(clean);
     });
-
     if (!topicList) return;
-
     topicList.innerHTML = '';
-
     names.forEach(n => {
         const opt = document.createElement('option');
         opt.value = n;
@@ -360,9 +315,9 @@ function updateTopicList() {
     });
 }
 
+
 function addTask() {
     const text = inputBox.value.trim();
-
     if (!text) {
         showToast('toast-empty', 'warning');
         return;
@@ -387,7 +342,6 @@ function addTask() {
     prioritySelect.value = 'low';
 
     saveAndRender();
-
     showToast('toast-added', 'success');
 }
 
@@ -396,7 +350,6 @@ function openEditModal(id) {
     if (!task) return;
 
     currentEditingTaskId = id;
-
     editTextInput.value = task.text;
     editTopicInput.value = task.topic || '';
     editPrioritySelect.value = task.priority;
@@ -412,29 +365,24 @@ function closeEditModal() {
 
 function saveTaskEdit() {
     const newText = editTextInput.value.trim();
-
     if (!newText) {
         showToast('toast-edit-empty', 'warning');
         return;
     }
-
     if (!currentEditingTaskId) return;
 
-    tasks = tasks.map(task =>
-        task.id === currentEditingTaskId
-            ? {
-                ...task,
-                text: newText,
-                topic: normalizeTopic(editTopicInput.value),
-                priority: editPrioritySelect.value,
-                dueDate: editDateInput.value
-            }
-            : task
-    );
+    tasks = tasks.map(task => task.id === currentEditingTaskId
+        ? {
+            ...task,
+            text: newText,
+            topic: normalizeTopic(editTopicInput.value),
+            priority: editPrioritySelect.value,
+            dueDate: editDateInput.value
+        }
+        : task);
 
     saveAndRender();
     closeEditModal();
-
     showToast('toast-saved', 'success');
 }
 
@@ -443,84 +391,52 @@ function toggleComplete(id) {
     if (!task) return;
 
     task.completed = !task.completed;
-
     if (task.completed) {
         playCompletionSound();
         showToast('toast-completed', 'success');
     } else {
         showToast('toast-uncompleted', 'info');
     }
-
     saveAndRender();
 }
 
 function archiveTask(id) {
-    tasks = tasks.map(task =>
-        task.id === id ? { ...task, archived: true } : task
-    );
-
+    tasks = tasks.map(task => task.id === id ? { ...task, archived: true } : task);
     saveAndRender();
-
     showToast('toast-archived', 'info');
 }
 
 function restoreTask(id) {
-    tasks = tasks.map(task =>
-        task.id === id
-            ? { ...task, archived: false, completed: false }
-            : task
-    );
-
+    tasks = tasks.map(task => task.id === id ? { ...task, archived: false, completed: false } : task);
     saveAndRender();
-
     showToast('toast-restored', 'success');
 }
 
 function deleteTask(id) {
     taskToDeleteId = id;
-
     const textEl = document.getElementById('delete-confirm-text');
 
     textEl.textContent = translations[currentLang]['confirm-delete'];
-
-    confirmDeleteYes.textContent =
-        translations[currentLang]['confirm-delete-yes'];
-
-    confirmDeleteNo.textContent =
-        translations[currentLang]['confirm-delete-no'];
+    confirmDeleteYes.textContent = translations[currentLang]['confirm-delete-yes'];
+    confirmDeleteNo.textContent = translations[currentLang]['confirm-delete-no'];
 
     deleteModal.classList.remove('hidden');
 }
 
 function formatDate(dateStr) {
     if (!dateStr) return '';
-
     const [year, month, day] = dateStr.split('-');
     const date = new Date(year, month - 1, day);
-
-    const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    };
-
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const localeStr = currentLang === 'bg' ? 'bg-BG' : 'en-US';
-
     return date.toLocaleDateString(localeStr, options);
 }
 
+
 function switchTab(tab) {
     activeTab = tab;
-
-    document.getElementById('tab-active').classList.toggle(
-        'active',
-        tab === 'active'
-    );
-
-    document.getElementById('tab-history').classList.toggle(
-        'active',
-        tab === 'history'
-    );
+    document.getElementById('tab-active').classList.toggle('active', tab === 'active');
+    document.getElementById('tab-history').classList.toggle('active', tab === 'history');
 
     if (tab === 'active') {
         activeList.classList.remove('hidden-view');
@@ -531,24 +447,16 @@ function switchTab(tab) {
         historyList.classList.remove('hidden-view');
         inputSection.classList.add('hidden');
     }
-
-    renderTasks();
+    renderPager();
 }
 
 function totalPagesFor(tab) {
-    const count = tasks.filter(
-        t => !!t.archived === (tab === 'history')
-    ).length;
-
-    return Math.max(1, Math.ceil(count / TASKS_PER_PAGE()));
+    const count = tasks.filter(t => !!t.archived === (tab === 'history')).length;
+    return Math.max(1, Math.ceil(count / TASKS_PER_PAGE));
 }
 
 function goToPage(page) {
-    pages[activeTab] = Math.min(
-        Math.max(1, page),
-        totalPagesFor(activeTab)
-    );
-
+    pages[activeTab] = Math.min(Math.max(1, page), totalPagesFor(activeTab));
     renderTasks();
 }
 
@@ -560,64 +468,45 @@ function renderPager() {
     const current = pages[activeTab];
 
     pager.style.display = total > 1 ? 'flex' : 'none';
-
-    document.getElementById('pages-info').textContent =
-        `${current} / ${total}`;
-
+    document.getElementById('pages-info').textContent = `${current} / ${total}`;
     document.getElementById('page-prev').disabled = current <= 1;
     document.getElementById('page-next').disabled = current >= total;
 }
+
 
 function renderTaskList(container, tab) {
     const isActive = tab === 'active';
     const view = getView(tab);
 
     pages[tab] = Math.min(pages[tab], totalPagesFor(tab));
-
-    const perPage = TASKS_PER_PAGE();
-    const start = (pages[tab] - 1) * perPage;
-    const pageItems = view.slice(start, start + perPage);
+    const start = (pages[tab] - 1) * TASKS_PER_PAGE;
+    const pageItems = view.slice(start, start + TASKS_PER_PAGE);
 
     container.innerHTML = '';
 
     if (view.length === 0) {
         const emptyLi = document.createElement('li');
         emptyLi.className = 'empty-state';
-
-        const img = isActive
-            ? 'active-empty.png'
-            : 'archive-empty.png';
-
+        const img = isActive ? 'active-empty.png' : 'archive-empty.png';
         const msg = isActive
-            ? (currentLang === 'bg'
-                ? 'Няма активни задачи засега!'
-                : 'No active tasks yet!')
-            : (currentLang === 'bg'
-                ? 'Архивът е празен.'
-                : 'Archive is empty.');
-
+            ? (currentLang === 'bg' ? 'Няма активни задачи засега!' : 'No active tasks yet!')
+            : (currentLang === 'bg' ? 'Архивът е празен.' : 'Archive is empty.');
         emptyLi.innerHTML = `
             <img src="./images/${img}" width="80" height="80" style="opacity: 0.3;" alt="">
             <p style="margin-top: 20px">${msg}</p>
         `;
-
         container.appendChild(emptyLi);
         return;
     }
 
     pageItems.forEach(task => {
-        container.appendChild(
-            isActive
-                ? createActiveTaskElement(task)
-                : createHistoryTaskElement(task)
-        );
+        container.appendChild(isActive ? createActiveTaskElement(task) : createHistoryTaskElement(task));
     });
 }
 
 function renderTasks() {
     renderTaskList(activeList, 'active');
     renderTaskList(historyList, 'history');
-
     renderPager();
     updateTopicList();
 
@@ -628,38 +517,21 @@ function renderTasks() {
     historyCount.textContent = archivedTasks.length;
 
     const total = activeTasks.length;
-
-    const completedCount = activeTasks.filter(
-        t => t.completed
-    ).length;
-
-    const percent = total === 0
-        ? 0
-        : Math.round((completedCount / total) * 100);
-
+    const completedCount = activeTasks.filter(t => t.completed).length;
+    const percent = total === 0 ? 0 : Math.round((completedCount / total) * 100);
     progressFill.style.width = `${percent}%`;
     progressPercent.textContent = `${percent}%`;
 }
 
 function translatePriority(p) {
-    if (p === 'low') {
-        return currentLang === 'bg' ? 'нисък' : 'low';
-    }
-
-    if (p === 'medium') {
-        return currentLang === 'bg' ? 'среден' : 'medium';
-    }
-
-    if (p === 'high') {
-        return currentLang === 'bg' ? 'висок' : 'high';
-    }
-
+    if (p === 'low') return currentLang === 'bg' ? 'нисък' : 'low';
+    if (p === 'medium') return currentLang === 'bg' ? 'среден' : 'medium';
+    if (p === 'high') return currentLang === 'bg' ? 'висок' : 'high';
     return p;
 }
 
 function createActiveTaskElement(task) {
     const li = document.createElement('li');
-
     li.className = `task-item priority-${task.priority} ${task.completed ? 'completed' : ''}`;
     li.draggable = !isTouchDevice;
     li.dataset.id = task.id;
@@ -668,24 +540,19 @@ function createActiveTaskElement(task) {
     const tArch = translations[currentLang]['tooltip-archive'];
     const tDel = translations[currentLang]['tooltip-delete'];
     const tComp = translations[currentLang]['tooltip-complete'];
-
     const categoryBadge = createCategoryBadgeHTML(task.topic);
 
     li.innerHTML = `
         <div class="task-content" title="${tComp}">
             <div class="custom-checkbox">
-                ${task.completed
-                    ? '<img src="./images/check.png" width="30" height="30" alt="">'
-                    : ''}
+                ${task.completed ? '<img src="./images/mark.png" width="24" height="24" alt="">' : ''}
             </div>
             <div class="task-text-group">
                 <span class="task-title">${escapeHTML(task.text)}</span>
                 <div class="task-meta">
                     <span class="badge badge-${task.priority}">${translatePriority(task.priority)}</span>
                     ${categoryBadge}
-                    ${task.dueDate
-                        ? `<span class="due-date-display"><img src="./images/calendar-solid.png" width="15" height="15" alt=""> ${formatDate(task.dueDate)}</span>`
-                        : ''}
+                    ${task.dueDate ? `<span class="due-date-display"><img src="./images/calendar-solid.png" width="15" height="15" alt=""> ${formatDate(task.dueDate)}</span>` : ''}
                 </div>
             </div>
         </div>
@@ -711,12 +578,10 @@ function createActiveTaskElement(task) {
         e.stopPropagation();
         openEditModal(task.id);
     });
-
     li.querySelector('.action-btn.archive').addEventListener('click', e => {
         e.stopPropagation();
         archiveTask(task.id);
     });
-
     li.querySelector('.action-btn.delete').addEventListener('click', e => {
         e.stopPropagation();
         deleteTask(task.id);
@@ -727,22 +592,18 @@ function createActiveTaskElement(task) {
 
 function createHistoryTaskElement(task) {
     const li = document.createElement('li');
-
     li.className = 'task-item completed history-item';
     li.dataset.id = task.id;
 
     const tRest = translations[currentLang]['tooltip-restore'];
     const tDelPerm = translations[currentLang]['tooltip-delete-perm'];
-
     const categoryBadge = createCategoryBadgeHTML(task.topic);
 
     li.innerHTML = `
         <div class="task-content">
             <span class="task-title">${escapeHTML(task.text)}</span>
             ${categoryBadge}
-            ${task.dueDate
-                ? `<span class="due-date-display" style="margin-left: 12px;"><img src="./images/calendar-solid.png" width="15" height="15" alt=""> ${formatDate(task.dueDate)}</span>`
-                : ''}
+            ${task.dueDate ? `<span class="due-date-display" style="margin-left: 12px;"><img src="./images/calendar-solid.png" width="15" height="15" alt=""> ${formatDate(task.dueDate)}</span>` : ''}
         </div>
         <div class="task-actions" style="margin-left: auto;">
             <button type="button" class="action-btn restore" onclick="restoreTask(${task.id})" title="${tRest}">
@@ -757,28 +618,30 @@ function createHistoryTaskElement(task) {
     return li;
 }
 
+
 function saveAndRender() {
     localStorage.setItem('tasksflow_tasks', JSON.stringify(tasks));
     renderTasks();
 }
 
 function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, tag => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;'
-    }[tag] || tag));
+    return str.replace(/[&<>'"]/g,
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
 }
 
+
 function playCompletionSound() {
-    completionSound.volume = 0.3;
+    completionSound.volume = 0.7;
     completionSound.currentTime = 0;
 
-    completionSound.play().catch(error => {
-        console.error('Грешка при възпроизвеждане на звука:', error);
-    });
+    completionSound.play()
+        .then(() => {
+            console.log('Success!');
+        })
+        .catch(error => {
+            console.error('Error:', error.name, error.message);
+        });
 }
 
 function togglePlayer() {
@@ -791,15 +654,12 @@ function togglePlayer() {
     if (!playerCard || !appLayout) return;
 
     const minimized = playerCard.classList.toggle('minimized');
-
     appLayout.classList.toggle('player-minimized', minimized);
 
     if (minimized) {
         if (gearBtn) gearBtn.style.display = 'none';
         if (playlistInputContainer) playlistInputContainer.style.display = 'none';
-        if (hintBanner) {
-            hintBanner.style.display = hintDismissed ? 'none' : 'flex';
-        }
+        if (hintBanner) hintBanner.style.display = hintDismissed ? 'none' : 'flex';
     } else {
         if (gearBtn) gearBtn.style.display = 'flex';
         if (hintBanner) hintBanner.style.display = 'none';
@@ -825,23 +685,18 @@ function promptPlaylistChange() {
 
 function saveNewPlaylist() {
     const userInput = document.getElementById('playlist-url-input').value.trim();
-
     if (!userInput) return;
 
-    let playlistId = '';
-
-    if (userInput.includes('playlist/')) {
-        playlistId = userInput.split('playlist/')[1].split('?')[0];
+    let playlistId = "";
+    if (userInput.includes("playlist/")) {
+        playlistId = userInput.split("playlist/")[1].split("?")[0];
     } else {
         playlistId = userInput;
     }
 
     if (playlistId) {
-        const newSrc =
-            `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`;
-
+        const newSrc = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`;
         document.getElementById('spotify-iframe').src = newSrc;
-
         localStorage.setItem('tasksflow_spotify_playlist', newSrc);
 
         document.getElementById('playlist-input-container').style.display = 'none';
@@ -851,50 +706,35 @@ function saveNewPlaylist() {
     }
 }
 
+
 function setupDragAndDrop() {
     let dragged = null;
 
     activeList.addEventListener('dragstart', e => {
         const item = e.target.closest('.task-item');
         if (!item) return;
-
         dragged = item;
-
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', '');
-
-        setTimeout(() => {
-            if (dragged) dragged.classList.add('dragging');
-        }, 0);
+        setTimeout(() => dragged && dragged.classList.add('dragging'), 0);
     });
 
     activeList.addEventListener('dragover', e => {
         if (!dragged) return;
-
         e.preventDefault();
-
-        const after = getDragAfterElement(
-            activeList,
-            '.task-item:not(.dragging)',
-            e.clientY
-        );
-
-        if (after == null) {
-            activeList.appendChild(dragged);
-        } else {
-            activeList.insertBefore(dragged, after);
-        }
+        const after = getDragAfterElement(activeList, '.task-item:not(.dragging)', e.clientY);
+        if (after == null) activeList.appendChild(dragged);
+        else activeList.insertBefore(dragged, after);
     });
 
     activeList.addEventListener('dragend', () => {
         if (!dragged) return;
-
         dragged.classList.remove('dragging');
         dragged = null;
-
         commitDragOrder();
     });
 }
+
 
 function setupTouchDrag() {
     let item = null;
@@ -908,63 +748,37 @@ function setupTouchDrag() {
 
     activeList.addEventListener('touchstart', e => {
         const li = e.target.closest('.task-item');
-
         if (!li || e.target.closest('.action-btn')) return;
-
         startY = e.touches[0].clientY;
-
         timer = setTimeout(() => {
             item = li;
             li.classList.add('dragging');
-
-            if (navigator.vibrate) {
-                navigator.vibrate(15);
-            }
+            if (navigator.vibrate) navigator.vibrate(15);
         }, 300);
     }, { passive: true });
 
     activeList.addEventListener('touchmove', e => {
         if (!item) {
-            if (Math.abs(e.touches[0].clientY - startY) > 8) {
-                cancelTimer();
-            }
-
+            if (Math.abs(e.touches[0].clientY - startY) > 8) cancelTimer();
             return;
         }
-
         e.preventDefault();
 
         const y = e.touches[0].clientY;
+        const after = getDragAfterElement(activeList, '.task-item:not(.dragging)', y);
+        if (after == null) activeList.appendChild(item);
+        else activeList.insertBefore(item, after);
 
-        const after = getDragAfterElement(
-            activeList,
-            '.task-item:not(.dragging)',
-            y
-        );
-
-        if (after == null) {
-            activeList.appendChild(item);
-        } else {
-            activeList.insertBefore(item, after);
-        }
-
-        if (y < 80) {
-            window.scrollBy(0, -8);
-        } else if (y > window.innerHeight - 80) {
-            window.scrollBy(0, 8);
-        }
+        if (y < 80) window.scrollBy(0, -8);
+        else if (y > window.innerHeight - 80) window.scrollBy(0, 8);
     }, { passive: false });
 
     const finish = () => {
         cancelTimer();
-
         if (!item) return;
-
         item.classList.remove('dragging');
         item = null;
-
-        suppressClickUntil = Date.now() + 400;
-
+        suppressClickUntil = Date.now() + 400;   
         commitDragOrder();
     };
 
@@ -973,66 +787,36 @@ function setupTouchDrag() {
 }
 
 function getDragAfterElement(container, selector, y) {
-    const elements = [
-        ...container.querySelectorAll(`:scope > ${selector}`)
-    ];
-
+    const elements = [...container.querySelectorAll(`:scope > ${selector}`)];
     return elements.reduce((closest, child) => {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
-
-        if (offset < 0 && offset > closest.offset) {
-            return {
-                offset,
-                element: child
-            };
-        }
-
+        if (offset < 0 && offset > closest.offset) return { offset, element: child };
         return closest;
-    }, {
-        offset: Number.NEGATIVE_INFINITY
-    }).element;
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
 function commitDragOrder() {
-    const pageIds = [
-        ...activeList.querySelectorAll('.task-item')
-    ].map(el => Number(el.dataset.id));
-
+    const pageIds = [...activeList.querySelectorAll('.task-item')].map(el => Number(el.dataset.id));
     const activeTasks = tasks.filter(t => !t.archived);
     const archivedTasks = tasks.filter(t => t.archived);
 
-    const perPage = TASKS_PER_PAGE();
-    const start = (pages.active - 1) * perPage;
-
-    const currentSlice = activeTasks.slice(
-        start,
-        start + perPage
-    );
-
+    const start = (pages.active - 1) * TASKS_PER_PAGE;
+    const currentSlice = activeTasks.slice(start, start + TASKS_PER_PAGE);
     const reorderedSlice = pageIds
         .map(id => currentSlice.find(t => t.id === id))
         .filter(Boolean);
 
     if (reorderedSlice.length !== currentSlice.length) return;
 
-    activeTasks.splice(
-        start,
-        currentSlice.length,
-        ...reorderedSlice
-    );
-
+    activeTasks.splice(start, currentSlice.length, ...reorderedSlice);
     tasks = [...activeTasks, ...archivedTasks];
-
     saveAndRender();
 }
 
+
 function clearData() {
-    const hasItemsToClear = tasks.some(
-        task => activeTab === 'active'
-            ? !task.archived
-            : task.archived
-    );
+    const hasItemsToClear = tasks.some(task => activeTab === 'active' ? !task.archived : task.archived);
 
     if (!hasItemsToClear) {
         showToast('toast-emptyList', 'info');
@@ -1041,49 +825,9 @@ function clearData() {
 
     viewToClear = activeTab;
 
-    document.getElementById('clear-confirm-text').textContent =
-        translations[currentLang]['confirm-clear'];
-
-    clearYesBtn.textContent =
-        currentLang === 'bg' ? 'Да, изчисти' : 'Yes, clear';
-
-    clearNoBtn.textContent =
-        currentLang === 'bg' ? 'Отказ' : 'Cancel';
+    document.getElementById('clear-confirm-text').textContent = translations[currentLang]['confirm-clear'];
+    clearYesBtn.textContent = currentLang === 'bg' ? 'Да, изчисти' : 'Yes, clear';
+    clearNoBtn.textContent = currentLang === 'bg' ? 'Отказ' : 'Cancel';
 
     clearModal.classList.remove('hidden');
 }
-
-(function setupFieldsToggle() {
-    const group = document.querySelector('.input-group');
-
-    if (!group || document.getElementById('toggle-fields-btn')) return;
-
-    const btn = document.createElement('button');
-
-    btn.type = 'button';
-    btn.id = 'toggle-fields-btn';
-
-    btn.setAttribute(
-        'aria-label',
-        'Покажи / скрий категория и приоритет'
-    );
-
-    btn.setAttribute('aria-expanded', 'true');
-
-    btn.innerHTML = `
-        <svg viewBox="0 0 24 24" width="18" height="18"
-            fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 15l6-6 6 6"/>
-        </svg>
-    `;
-
-    btn.addEventListener('click', () => {
-        const hidden = group.classList.toggle('fields-hidden');
-
-        btn.setAttribute('aria-expanded', String(!hidden));
-    });
-
-    group.appendChild(btn);
-})();
-
