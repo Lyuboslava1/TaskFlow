@@ -7,7 +7,7 @@
 
 ### Organize • Focus • Achieve
 
-TasksFlow is a modern and intuitive task manager designed to help you organize your daily activities, track your progress, and stay productive.
+TasksFlow is a simple and easy to use task manager that helps you keep track of your daily tasks, stay organized, and get things done without losing focus.
 
 ![TasksFlow Preview](preview.png)
 
@@ -32,11 +32,10 @@ TasksFlow is a modern and intuitive task manager designed to help you organize y
 
 ## Responsive Design
 
-TasksFlow is designed to provide a smooth experience across desktop, tablet, and mobile screen sizes.
-
+TasksFlow is built to work well on all screen sizes, whether you're using a computer, tablet, or phone.
 
 ## Author
 
 Created by **Lyuboslava Ivanova** 
 
-Frontend Developer | HTML • CSS • JavaScript • React
+💻 Frontend Developer | HTML • CSS • JavaScript • React
