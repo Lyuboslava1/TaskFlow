@@ -11,7 +11,7 @@ TasksFlow is a modern and intuitive task manager designed to help you organize y
 
 ![TasksFlow Preview](preview.png)
 
-## 🚀 Features
+## Features
 
 - **Task Management** — Create, edit, complete, archive, restore, and delete tasks.
 - **Categories & Priorities** — Organize tasks and set their priority levels.
@@ -24,18 +24,18 @@ TasksFlow is a modern and intuitive task manager designed to help you organize y
 - **Local Storage** — Save tasks and preferences in your browser.
 - **Responsive Design** — Adapted for desktop, tablet, and mobile devices.
 
-## 🛠️ Built With
+## Built With
 
 - HTML5
 - CSS3
 - JavaScript
 
-## 📱 Responsive Design
+## Responsive Design
 
 TasksFlow is designed to provide a smooth experience across desktop, tablet, and mobile screen sizes.
 
 
-## 👩‍💻 Author
+## Author
 
 Created by **Lyuboslava Ivanova** ❤️
 
