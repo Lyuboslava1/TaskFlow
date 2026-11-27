@@ -5,8 +5,6 @@
   </a>
 </h1>
 
-### Organize • Focus • Achieve
-
 TasksFlow is a simple and easy to use task manager that helps you keep track of your daily tasks, stay organized, and get things done without losing focus.
 
 ![TasksFlow Preview](preview.png)
