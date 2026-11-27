@@ -44,31 +44,35 @@
                     <img src="./images/add.png" width="14" height="14" alt="">
                     <input type="text" id="input-box" data-translate-placeholder="input-placeholder" placeholder="Какво трябва да се направи?" autocomplete="off">
 
-                <div class="input-controls">
-                <div class="meta-row">
-                    <input type="text" id="topic-box" list="topic-list" data-translate-placeholder="topic-placeholder" placeholder="Категория (по избор)" autocomplete="off" maxlength="30">
-                    <datalist id="topic-list"></datalist>
+                    <div class="input-controls">
+                        <div class="meta-wrap">
+                            <div class="meta-row">
+                                <input type="text" id="topic-box" list="topic-list" data-translate-placeholder="topic-placeholder" placeholder="Категория (по избор)" autocomplete="off" maxlength="30">
+                                <datalist id="topic-list"></datalist>
 
-                    <select id="priority-select" title="Приоритет">
-                        <option value="low" selected data-translate="opt-low">Нисък</option>
-                        <option value="medium" data-translate="opt-medium">Среден</option>
-                        <option value="high" data-translate="opt-high">Висок</option>
-                    </select>
+                                <select id="priority-select" title="Приоритет">
+                                    <option value="low" selected data-translate="opt-low">Нисък</option>
+                                    <option value="medium" data-translate="opt-medium">Среден</option>
+                                    <option value="high" data-translate="opt-high">Висок</option>
+                                </select>
 
-                    <div class="date-picker-wrapper" data-translate-title="due-date-title" title="Краен срок">
-                        <img src="./images/calendar-solid.png" width="15" height="15" alt="">
-                        <input type="date" id="date-box">
+                                <div class="date-picker-wrapper" data-translate-title="due-date-title" title="Краен срок">
+                                    <img src="./images/calendar-solid.png" width="15" height="15" alt="">
+                                    <input type="date" id="date-box">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="add-row">
+                            <button id="add-btn" onclick="addTask()">
+                                <span data-translate="btn-add">Добави</span>
+                            </button>
+
+                            <button type="button" id="toggle-details-btn" class="toggle-details-btn" aria-expanded="true" data-translate-title="details-toggle-title" title="Детайли">
+                                <span class="chevron">▾</span>
+                            </button>
+                        </div>
                     </div>
-
-                    <button type="button" id="toggle-details-btn" class="toggle-details-btn" aria-expanded="true" data-translate-title="details-toggle-title" title="Детайли">
-                        <span class="chevron">▾</span>
-                    </button>
-                </div>
-
-                <button id="add-btn" onclick="addTask()">
-                    <span data-translate="btn-add">+ Добави задача</span>
-                </button>
-            </div>
                 </div>
             </section>
 
@@ -90,7 +94,7 @@
             <ul id="list-container" class="task-list active-view"></ul>
             <ul id="history-container" class="task-list hidden-view"></ul>
 
-            
+
             <div class="pages-bar" id="pages-bar">
                 <button type="button" id="page-prev" onclick="goToPage(pages[activeTab] - 1)">&lsaquo;</button>
                 <span id="pages-info">1 / 1</span>
@@ -155,7 +159,7 @@
                         <label for="edit-text-input" data-translate="modal-label-title">Заглавие:</label>
                         <input type="text" id="edit-text-input">
                     </div>
-                    
+
                     <div class="edit-form-group">
                         <label for="edit-topic-input" data-translate="modal-label-topic">Категория:</label>
                         <input type="text" id="edit-topic-input" list="topic-list" maxlength="30" autocomplete="off">
@@ -182,7 +186,7 @@
 
         <div id="toast-container"></div>
 
-        
+
         <div id="delete-confirm-modal" class="modal-overlay hidden">
             <div class="confirm-dialog-box">
                 <div class="confirm-dialog-icon">
@@ -196,7 +200,7 @@
             </div>
         </div>
 
-        
+
         <div id="clear-confirm-modal" class="modal-overlay hidden">
             <div class="confirm-dialog-box">
                 <div class="confirm-dialog-icon">
@@ -214,3 +218,4 @@
     <script src="index.js"></script>
 </body>
 </html>
+
