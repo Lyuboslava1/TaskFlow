@@ -1322,7 +1322,6 @@ body {
     }
 }
 
-/* ===== Toggle за детайлите (категория / приоритет / дата) ===== */
 
 .meta-wrap {
     display: contents;
@@ -1358,6 +1357,11 @@ body {
 @media (max-width: 600px) {
     .toggle-details-btn {
         display: flex;
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        font-size: 14px;
     }
 
     .add-row {
@@ -1378,12 +1382,22 @@ body {
     .meta-row {
         min-height: 0;
         overflow: hidden;
+        gap: 6px;
     }
 
     #topic-box,
     #priority-select {
         flex: 1 1 0;
         min-width: 0;
+        min-height: 36px;
+        height: 36px;
+        padding: 4px 10px;
+    }
+
+    .date-picker-wrapper {
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
     }
 
     .input-group.details-collapsed .meta-wrap {
@@ -1392,6 +1406,30 @@ body {
 
     .input-group.details-collapsed .toggle-details-btn .chevron {
         transform: rotate(0deg);
+    }
+}
+
+
+@media (max-width: 900px) {
+    .app-layout {
+        align-items: stretch;
+    }
+
+    .todo-card {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .todo-card {
+        min-height: calc(100dvh - 96px);
+    }
+}
+
+@media (min-width: 601px) {
+    .todo-card {
+        min-height: 620px;
     }
 }
 
