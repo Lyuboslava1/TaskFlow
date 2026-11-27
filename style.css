@@ -1322,6 +1322,7 @@ body {
     }
 }
 
+/* ===== Toggle за детайлите (категория / приоритет / дата) ===== */
 
 .meta-wrap {
     display: contents;
@@ -1355,22 +1356,34 @@ body {
 }
 
 @media (max-width: 600px) {
+    #input-box {
+        font-size: 18px;
+        min-height: 52px;
+        padding: 12px 6px;
+    }
+
     .toggle-details-btn {
         display: flex;
-        flex: 0 0 36px;
-        width: 36px;
-        height: 36px;
+        flex: 0 0 34px;
+        width: 34px;
+        height: 34px;
         border-radius: 8px;
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .add-row {
         width: 100%;
+        gap: 6px;
     }
 
     #add-btn {
         flex: 1 1 auto;
         width: auto;
+        min-height: 34px;
+        height: 34px;
+        padding: 0 14px;
+        font-size: 13px;
+        border-radius: 8px;
     }
 
     .meta-wrap {
@@ -1389,15 +1402,22 @@ body {
     #priority-select {
         flex: 1 1 0;
         min-width: 0;
-        min-height: 36px;
-        height: 36px;
-        padding: 4px 10px;
+        min-height: 30px;
+        height: 30px;
+        padding: 2px 8px;
+        border-radius: 7px;
     }
 
     .date-picker-wrapper {
-        flex: 0 0 36px;
-        width: 36px;
-        height: 36px;
+        flex: 0 0 30px;
+        width: 30px;
+        height: 30px;
+        border-radius: 7px;
+    }
+
+    .date-picker-wrapper img {
+        width: 13px;
+        height: 13px;
     }
 
     .input-group.details-collapsed .meta-wrap {
@@ -1409,6 +1429,7 @@ body {
     }
 }
 
+/* ===== Респонсив карта (и в Активни, и в Архив) ===== */
 
 @media (max-width: 900px) {
     .app-layout {
@@ -1432,4 +1453,3 @@ body {
         min-height: 620px;
     }
 }
-
