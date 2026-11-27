@@ -271,7 +271,7 @@ function showToast(key, type = 'success') {
             toast.style.transition = 'all 0.3s ease';
             setTimeout(() => toast.remove(), 300);
         }
-    }, 2000);
+    }, 400);
 }
 
 
@@ -832,3 +832,4 @@ function clearData() {
 
     clearModal.classList.remove('hidden');
 }
+
