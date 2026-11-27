@@ -107,7 +107,7 @@ let currentLang = localStorage.getItem('tasksflow_lang') || 'bg';
 let taskToDeleteId = null;
 let viewToClear = null;
 let hintDismissed = localStorage.getItem('tasksflow_hint_dismissed') === '1';
-const completionSound = new Audio('/completed.mp3');
+const completionSound = new Audio('./completed.mp3');
 
 const TASKS_PER_PAGE = 6;
 const pages = { active: 1, history: 1 };
@@ -545,7 +545,7 @@ function createActiveTaskElement(task) {
     li.innerHTML = `
         <div class="task-content" title="${tComp}">
             <div class="custom-checkbox">
-                ${task.completed ? '<img src="./images/mark.png" width="24" height="24" alt="">' : ''}
+                ${task.completed ? '<img src="./images/check-box.png" width="27" height="27" alt="">' : ''}
             </div>
             <div class="task-text-group">
                 <span class="task-title">${escapeHTML(task.text)}</span>
@@ -632,7 +632,7 @@ function escapeHTML(str) {
 
 
 function playCompletionSound() {
-    completionSound.volume = 0.7;
+    completionSound.volume = 0.3;
     completionSound.currentTime = 0;
 
     completionSound.play()
@@ -643,6 +643,8 @@ function playCompletionSound() {
             console.error('Error:', error.name, error.message);
         });
 }
+
+
 
 function togglePlayer() {
     const playerCard = document.getElementById('music-player-card');
@@ -734,7 +736,6 @@ function setupDragAndDrop() {
         commitDragOrder();
     });
 }
-
 
 function setupTouchDrag() {
     let item = null;
@@ -831,3 +832,4 @@ function clearData() {
 
     clearModal.classList.remove('hidden');
 }
+
