@@ -103,7 +103,7 @@ let taskToDeleteId = null;
 let viewToClear = null;
 let hintDismissed = localStorage.getItem('tasksflow_hint_dismissed') === '1';
 
-const completionSound = new Audio('/completed.mp3');
+const completionSound = new Audio('./completed.mp3');
 
 const TASKS_PER_PAGE = () =>
     window.matchMedia('(max-width: 768px)').matches ? 4 : 6;
