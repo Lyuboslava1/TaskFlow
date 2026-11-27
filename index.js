@@ -832,4 +832,3 @@ function clearData() {
 
     clearModal.classList.remove('hidden');
 }
-
